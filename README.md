@@ -1,7 +1,7 @@
 # babel-plugin-modular-graphql
 
 A small transform plugin to cherry-pick GraphQL modules so you don’t have to.
-Basicaly [babel-plugin-lodash](https://github.com/lodash/babel-plugin-lodash) for [graphql](https://github.com/graphql/graphql-js).
+Basically [babel-plugin-lodash](https://github.com/lodash/babel-plugin-lodash) for [graphql](https://github.com/graphql/graphql-js).
 
 ## Getting Started
 
@@ -27,3 +27,8 @@ Become:
 import { parse } from "graphql/language/parser";
 import { Kind } from "graphql/language/kinds";
 ```
+
+## Limitations
+
+- The plugin currently does not support `require()`
+- The plugin automatically generates an import-map that drills down into `graphql`'s files. This may break if files at a depth of 1–2 change their names.
