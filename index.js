@@ -1,4 +1,4 @@
-export default function({ types: t }) {
+module.exports = function babelPluginModularGraphql({ types: t }) {
   const importMap = require('./import-map.json');
   const PKG_NAME = 'graphql';
 
@@ -22,10 +22,7 @@ export default function({ types: t }) {
               const newImportedName = declaration ? declaration.local : imported;
 
               acc[from].specifiers.push(
-                t.importSpecifier(
-                  t.identifier(localName),
-                  t.identifier(newImportedName)
-                )
+                t.importSpecifier(t.identifier(localName), t.identifier(newImportedName))
               );
             }
 
@@ -33,14 +30,11 @@ export default function({ types: t }) {
           }, {});
 
           const importFiles = Object.keys(imports);
-          if (
-            importFiles.length &&
-            (importFiles.length !== 1 || importFiles[0] !== PKG_NAME)
-          ) {
-            path.replaceWithMultiple(importFiles.map(key => imports[key]));
+          if (importFiles.length && (importFiles.length !== 1 || importFiles[0] !== PKG_NAME)) {
+            path.replaceWithMultiple(importFiles.map((key) => imports[key]));
           }
         },
       },
     },
   };
-}
+};
