@@ -1,7 +1,7 @@
 {
   "name": "babel-plugin-modular-graphql",
   "description": "Modular GraphQL.js import paths without the hassle",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "index.js",
   "author": "Phil Pluckthun <phil@kitten.sh>",
   "license": "MIT",
