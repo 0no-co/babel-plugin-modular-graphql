@@ -1,4 +1,4 @@
-module.exports = function babelPluginModularGraphql({ types: t }) {
+module.exports = function babelPluginModularGraphql({ types: t }, { esm } = { esm: false }) {
   const importMap = require('./import-map.json');
   const importMapOverrides = require('./import-map-overrides.json');
   const PKG_NAME = 'graphql';
@@ -21,7 +21,7 @@ module.exports = function babelPluginModularGraphql({ types: t }) {
 
               const from = declaration ? declaration.from : PKG_NAME;
               if (!acc[from]) {
-                acc[from] = t.importDeclaration([], t.stringLiteral(from + '.mjs'));
+                acc[from] = t.importDeclaration([], t.stringLiteral(from + esm ? '.mjs' : '.js'));
               }
 
               const localName = specifier.local.name;
