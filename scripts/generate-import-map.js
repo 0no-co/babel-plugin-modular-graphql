@@ -24,8 +24,7 @@ function generateImportMapPlugin(opts = {}) {
       return declaration;
     }
 
-    return resolveFromMap(declaration.from, declaration.local, depth + 1)
-      || declaration;
+    return resolveFromMap(declaration.from, declaration.local, depth + 1) || declaration;
   };
 
   return {
@@ -35,31 +34,28 @@ function generateImportMapPlugin(opts = {}) {
       const dirname = path.dirname(relative);
       const exports = new Map();
 
-      this.parse(code).body
-        .filter(x => x.type === 'ExportNamedDeclaration')
-        .forEach(node => {
-          const source = node.source
-            ? resolveFile(dirname, node.source.value)
-            : relative;
+      this.parse(code)
+        .body.filter((x) => x.type === 'ExportNamedDeclaration')
+        .forEach((node) => {
+          const source = node.source ? resolveFile(dirname, node.source.value) : relative;
 
-          node.specifiers.forEach(specifier => {
+          node.specifiers.forEach((specifier) => {
             exports.set(specifier.exported.name, {
               local: specifier.local.name,
-              from: source
+              from: source,
             });
           });
 
           if (node.declaration) {
-            (node.declaration.declarations || [node.declaration])
-              .forEach(declaration => {
-                if (declaration && declaration.id) {
-                  const { name } = declaration.id;
-                  exports.set(declaration.id.name, {
-                    local: name,
-                    from: source
-                  });
-                }
-              });
+            (node.declaration.declarations || [node.declaration]).forEach((declaration) => {
+              if (declaration && declaration.id) {
+                const { name } = declaration.id;
+                exports.set(declaration.id.name, {
+                  local: name,
+                  from: source,
+                });
+              }
+            });
           }
         });
 
@@ -90,7 +86,7 @@ function generateImportMapPlugin(opts = {}) {
           type: 'asset',
           filename,
           name: filename,
-          source: JSON.stringify(importMap, null, 2)
+          source: JSON.stringify(importMap, null, 2),
         });
       }
     },
@@ -103,10 +99,10 @@ function generateImportMapPlugin(opts = {}) {
     external: (id) => !/^\.{0,2}\//.test(id),
     preserveModules: true,
     plugins: [
-      require('@rollup/plugin-node-resolve')(),
+      require('@rollup/plugin-node-resolve').nodeResolve(),
       generateImportMapPlugin({
-        filename: 'import-map.json'
-      })
+        filename: 'import-map.json',
+      }),
     ],
   });
 
@@ -114,7 +110,7 @@ function generateImportMapPlugin(opts = {}) {
 
   fs.writeFileSync(
     path.resolve(cwd, 'import-map.json'),
-    output.find(asset => asset.type === 'asset').source
+    output.find((asset) => asset.type === 'asset').source
   );
 })().catch((err) => {
   console.error(`${err.name}: ${err.message}`);

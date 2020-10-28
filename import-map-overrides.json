@@ -2,5 +2,9 @@
   "visitWithTypeInfo": {
     "local": "visitWithTypeInfo",
     "from": "graphql"
+  },
+  "executeSync": {
+    "local": "executeSync",
+    "from": "graphql"
   }
 }
