@@ -26,7 +26,7 @@ module.exports = function babelPluginModularGraphql({ types: t }, options = {}) 
 
               const from = declaration ? declaration.from : PKG_NAME;
               if (!acc[from]) {
-                acc[from] = t.importDeclaration([], t.stringLiteral(from + extension));
+                acc[from] = t.importDeclaration([], t.stringLiteral(from === 'graphql' ? from : from + extension));
               }
 
               const localName = specifier.local.name;
