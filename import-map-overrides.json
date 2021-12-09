@@ -6,5 +6,9 @@
   "executeSync": {
     "local": "executeSync",
     "from": "graphql"
+  },
+  "subscribe": {
+    "local": "subscribe",
+    "from": "graphql/subscribe"
   }
 }
