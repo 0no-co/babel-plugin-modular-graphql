@@ -9,6 +9,6 @@
   },
   "subscribe": {
     "local": "subscribe",
-    "from": "graphql/subscribe"
+    "from": "graphql/subscription"
   }
 }
