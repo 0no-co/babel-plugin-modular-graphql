@@ -3,6 +3,9 @@
 A small transform plugin to cherry-pick GraphQL modules so you don’t have to.
 Basically [babel-plugin-lodash](https://github.com/lodash/babel-plugin-lodash) for [graphql](https://github.com/graphql/graphql-js).
 
+This automatically finds the most specific import from the graphql module's files and folders that works
+across GraphQL.js v14, v15, and v16.
+
 ## Getting Started
 
 ```sh
