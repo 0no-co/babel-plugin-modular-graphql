@@ -26,7 +26,9 @@
   ],
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.1.1",
-    "graphql": "^15.4.0",
+    "graphql-14": "npm:graphql@^14.5.8",
+    "graphql-15": "npm:graphql@^16.1.0",
+    "graphql-16": "npm:graphql@^15.8.0",
     "husky-v4": "^4.3.0",
     "lint-staged": "^12.1.2",
     "prettier": "^2.5.1",
