@@ -11,7 +11,7 @@ async function traceImports(moduleName) {
   const resolveFile = (to, relative = '.') => {
     const dirname = path.join('graphql/', relative, path.dirname(to));
     const filename = path.basename(to, '.mjs');
-    return filename !== 'index' ? path.join(dirname, filename) : dirname;
+    return path.join(dirname, filename);
   };
 
   const bundle = await rollup({
@@ -123,8 +123,9 @@ function mergeTraces(traces) {
   };
 
   // Resolve all known (and consistent) exports to a common, deepest declaration
-  for (const local in trace.graphql)
-    exports[local] = resolveDeclaration({ local, from: 'graphql' });
+  const ROOT_MODULE = 'graphql/index';
+  for (const local in trace[ROOT_MODULE])
+    exports[local] = resolveDeclaration({ local, from: ROOT_MODULE });
   return exports;
 }
 

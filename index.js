@@ -5,6 +5,7 @@ module.exports = function babelPluginModularGraphql({ types: t }, options = {}) 
   }
 
   const importMap = require('./import-map.json');
+  const indexRe = /[\\/]index$/;
   const PKG_NAME = 'graphql';
 
   return {
@@ -26,12 +27,15 @@ module.exports = function babelPluginModularGraphql({ types: t }, options = {}) 
                 );
               }
 
-              const from = declaration ? declaration.from : PKG_NAME;
+              let from = declaration ? declaration.from : PKG_NAME;
               if (!acc[from]) {
-                acc[from] = t.importDeclaration(
-                  [],
-                  t.stringLiteral(from === 'graphql' ? from : from + extension)
-                );
+                if (from !== PKG_NAME && extension) {
+                  from += extension;
+                } else if (from !== PKG_NAME && from.endsWith('')) {
+                  from = from.replace(indexRe, '');
+                }
+
+                acc[from] = t.importDeclaration([], t.stringLiteral(from));
               }
 
               const localName = specifier.local.name;
