@@ -5,7 +5,6 @@ module.exports = function babelPluginModularGraphql({ types: t }, options = {}) 
   }
 
   const importMap = require('./import-map.json');
-  const importMapOverrides = require('./import-map-overrides.json');
   const PKG_NAME = 'graphql';
 
   return {
@@ -20,13 +19,19 @@ module.exports = function babelPluginModularGraphql({ types: t }, options = {}) 
               const imported = specifier.imported.name;
 
               let declaration = importMap[imported];
-              if (importMapOverrides[imported]) {
-                declaration = importMapOverrides[imported];
+              if (!declaration) {
+                console.warn(
+                  `The export "${imported}" could not be found. It may not be known, or may not be available consistently between graphql@14|15|16.\n` +
+                    'Try using an alternative method or check whether this method is present in the provided range of graphql major releases.'
+                );
               }
 
               const from = declaration ? declaration.from : PKG_NAME;
               if (!acc[from]) {
-                acc[from] = t.importDeclaration([], t.stringLiteral(from === 'graphql' ? from : from + extension));
+                acc[from] = t.importDeclaration(
+                  [],
+                  t.stringLiteral(from === 'graphql' ? from : from + extension)
+                );
               }
 
               const localName = specifier.local.name;
