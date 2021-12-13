@@ -24,6 +24,14 @@
     "modular",
     "tree-shaking"
   ],
+  "peerDependencies": {
+    "graphql": "^14.0.0 || ^15.0.0 || ^16.0.0"
+  },
+  "peerDependenciesMeta": {
+    "graphql": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.1.1",
     "graphql-14": "npm:graphql@^14.5.8",
